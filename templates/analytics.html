@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}MoodLens - Analytics{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Mood Analytics</h1>
+    <p class="subtitle">Visualise your emotional patterns and discover insights.</p>
+</section>
+
+<div class="stats-row" id="analytics-stats">
+    <div class="stat-card card">
+        <span class="stat-label">Weekly Average</span>
+        <span id="stat-weekly" class="stat-value">--</span>
+    </div>
+    <div class="stat-card card">
+        <span class="stat-label">Monthly Average</span>
+        <span id="stat-monthly" class="stat-value">--</span>
+    </div>
+    <div class="stat-card card">
+        <span class="stat-label">Positive Streak</span>
+        <span id="stat-streak" class="stat-value">--</span>
+    </div>
+    <div class="stat-card card">
+        <span class="stat-label">Top Emotion</span>
+        <span id="stat-top-emo" class="stat-value">--</span>
+    </div>
+</div>
+
+<div class="charts-row">
+    <div class="chart-card card">
+        <h3>Mood Over Time</h3>
+        <div class="chart-filter">
+            <select id="days-select" onchange="loadAnalytics()">
+                <option value="7">Last 7 days</option>
+                <option value="14">Last 14 days</option>
+                <option value="30" selected>Last 30 days</option>
+                <option value="90">Last 90 days</option>
+            </select>
+        </div>
+        <canvas id="mood-chart" width="600" height="300"></canvas>
+    </div>
+    <div class="chart-card card">
+        <h3>Emotion Frequency</h3>
+        <canvas id="emotion-chart" width="600" height="300"></canvas>
+    </div>
+</div>
+
+<div class="charts-row">
+    <div class="chart-card card">
+        <h3>Day-of-Week Mood Averages</h3>
+        <canvas id="dow-chart" width="600" height="280"></canvas>
+    </div>
+    <div class="chart-card card">
+        <h3>Word Cloud</h3>
+        <div id="word-cloud-container" class="word-cloud">
+            <p class="loading">Loading word data...</p>
+        </div>
+    </div>
+</div>
+
+<div class="insights-grid">
+    <div class="insight-card card">
+        <h3>Best Day</h3>
+        <p id="best-day-info" class="insight-text">--</p>
+    </div>
+    <div class="insight-card card">
+        <h3>Mood Distribution</h3>
+        <div id="mood-distribution" class="distribution-bars">
+            <p class="loading">Loading...</p>
+        </div>
+    </div>
+    <div class="insight-card card">
+        <h3>Wellness Tips</h3>
+        <ul id="analytics-suggestions" class="suggestion-list">
+            <li class="loading">Loading...</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', loadAnalytics);
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MoodLens{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">&#127774;</span> MoodLens
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Dashboard</a></li>
+                <li><a href="/journal" class="{% if request.path == '/journal' %}active{% endif %}">Journal</a></li>
+                <li><a href="/entries" class="{% if request.path == '/entries' %}active{% endif %}">Entries</a></li>
+                <li><a href="/analytics" class="{% if request.path == '/analytics' %}active{% endif %}">Analytics</a></li>
+                <li><a href="/about" class="{% if request.path == '/about' %}active{% endif %}">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="container main-content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>MoodLens &mdash; Your personal mood companion &bull; Track. Reflect. Grow.</p>
+        </div>
+    </footer>
+    <script src="/static/js/main.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

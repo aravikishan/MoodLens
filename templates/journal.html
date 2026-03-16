@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}MoodLens - Journal{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>How are you feeling?</h1>
+    <p class="subtitle">Write about your day and let MoodLens analyse your mood.</p>
+</section>
+
+<section class="journal-card card">
+    <h3>Select your mood</h3>
+    <div class="emoji-picker">
+        <button class="emoji-btn" data-mood="happy" title="Happy">&#128522;</button>
+        <button class="emoji-btn" data-mood="excited" title="Excited">&#129321;</button>
+        <button class="emoji-btn" data-mood="calm" title="Calm">&#128524;</button>
+        <button class="emoji-btn" data-mood="neutral" title="Neutral">&#128528;</button>
+        <button class="emoji-btn" data-mood="sad" title="Sad">&#128546;</button>
+        <button class="emoji-btn" data-mood="angry" title="Angry">&#128545;</button>
+        <button class="emoji-btn" data-mood="anxious" title="Anxious">&#128552;</button>
+        <button class="emoji-btn" data-mood="love" title="Loved">&#128525;</button>
+    </div>
+
+    <h3>Write your thoughts</h3>
+    <textarea id="journal-input" rows="8"
+              placeholder="Write about your thoughts, feelings, and experiences..."></textarea>
+
+    <div class="journal-footer">
+        <span id="char-count" class="char-count">0 / 5000</span>
+        <div class="journal-actions">
+            <button id="preview-btn" class="btn btn-secondary" onclick="previewSentiment()">Preview Mood</button>
+            <button id="save-btn" class="btn btn-primary" onclick="saveEntry()">Save Entry</button>
+        </div>
+    </div>
+</section>
+
+<!-- Real-time sentiment preview -->
+<section id="sentiment-preview" class="card analysis-card" style="display:none;">
+    <h2>Live Sentiment Preview</h2>
+    <div class="analysis-grid">
+        <div class="stat-box">
+            <span class="stat-label">Mood Score</span>
+            <span id="preview-score" class="stat-value score-badge">0</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Mood</span>
+            <span id="preview-label" class="stat-value mood-badge">--</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Dominant Emotion</span>
+            <span id="preview-emotion" class="stat-value emotion-badge">--</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Words</span>
+            <span id="preview-words" class="stat-value">0</span>
+        </div>
+    </div>
+    <h4>Emotion Breakdown</h4>
+    <div id="preview-emotions" class="emotion-breakdown"></div>
+    <h4>Confidence</h4>
+    <div id="preview-confidence" class="emotion-breakdown"></div>
+</section>
+
+<!-- Saved result -->
+<section id="analysis-result" class="card analysis-card" style="display:none;">
+    <h2>Entry Saved &mdash; Mood Analysis</h2>
+    <div class="analysis-grid">
+        <div class="stat-box">
+            <span class="stat-label">Mood Score</span>
+            <span id="result-score" class="stat-value score-badge">0</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Mood</span>
+            <span id="result-label" class="stat-value mood-badge">--</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Dominant Emotion</span>
+            <span id="result-emotion" class="stat-value emotion-badge">--</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Word Count</span>
+            <span id="result-words" class="stat-value">0</span>
+        </div>
+    </div>
+    <div id="emotion-breakdown" class="emotion-breakdown"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('journal-input').addEventListener('input', function() {
+    document.getElementById('char-count').textContent = this.value.length + ' / 5000';
+});
+document.querySelectorAll('.emoji-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.emoji-btn').forEach(function(b) { b.classList.remove('selected'); });
+        this.classList.add('selected');
+        var mood = this.dataset.mood;
+        var ta = document.getElementById('journal-input');
+        if (!ta.value.trim()) {
+            ta.value = 'I am feeling ' + mood + ' today. ';
+            document.getElementById('char-count').textContent = ta.value.length + ' / 5000';
+        }
+        ta.focus();
+    });
+});
+</script>
+{% endblock %}

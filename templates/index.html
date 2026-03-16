@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}MoodLens - Dashboard{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Welcome to MoodLens</h1>
+    <p class="subtitle">Your mood at a glance. Track emotions, discover patterns, grow.</p>
+</section>
+
+<!-- Quick stats row -->
+<div class="stats-row" id="dash-stats">
+    <div class="stat-card card">
+        <span class="stat-label">Total Entries</span>
+        <span id="dash-total" class="stat-value">--</span>
+    </div>
+    <div class="stat-card card">
+        <span class="stat-label">Average Mood</span>
+        <span id="dash-avg" class="stat-value">--</span>
+    </div>
+    <div class="stat-card card">
+        <span class="stat-label">Top Emotion</span>
+        <span id="dash-emotion" class="stat-value">--</span>
+    </div>
+    <div class="stat-card card">
+        <span class="stat-label">Positive Streak</span>
+        <span id="dash-streak" class="stat-value">--</span>
+    </div>
+</div>
+
+<!-- Mood distribution -->
+<div class="dashboard-grid">
+    <div class="card">
+        <h3>Mood Distribution</h3>
+        <div id="dash-distribution" class="distribution-bars">
+            <p class="loading">Loading...</p>
+        </div>
+    </div>
+    <div class="card">
+        <h3>Mood Trend (7 days)</h3>
+        <canvas id="dash-trend-chart" width="500" height="250"></canvas>
+    </div>
+</div>
+
+<!-- Recent entries -->
+<section class="card">
+    <h3>Recent Entries</h3>
+    <div id="dash-recent" class="timeline">
+        <p class="loading">Loading...</p>
+    </div>
+    <div class="card-footer">
+        <a href="/entries" class="btn btn-secondary">View All Entries</a>
+    </div>
+</section>
+
+<!-- Wellness suggestions -->
+<section class="card suggestions-card">
+    <h3>Wellness Suggestions</h3>
+    <ul id="dash-suggestions" class="suggestion-list">
+        <li class="loading">Loading suggestions...</li>
+    </ul>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', loadDashboard);
+</script>
+{% endblock %}

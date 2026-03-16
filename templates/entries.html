@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}MoodLens - Entries{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Journal Entries</h1>
+    <p class="subtitle">Browse, search, and reflect on your past entries.</p>
+</section>
+
+<div class="filter-bar card">
+    <div class="filter-group">
+        <label for="search-input">Search:</label>
+        <input type="text" id="search-input" placeholder="Search entries..."
+               onkeyup="debounceSearch()">
+    </div>
+    <div class="filter-group">
+        <label for="emotion-filter">Emotion:</label>
+        <select id="emotion-filter" onchange="loadEntries()">
+            <option value="">All</option>
+            <option value="joy">Joy</option>
+            <option value="sadness">Sadness</option>
+            <option value="anger">Anger</option>
+            <option value="fear">Fear</option>
+            <option value="love">Love</option>
+            <option value="surprise">Surprise</option>
+            <option value="calm">Calm</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label for="limit-select">Show:</label>
+        <select id="limit-select" onchange="loadEntries()">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+        </select>
+    </div>
+</div>
+
+<div id="entries-timeline" class="timeline">
+    <p class="loading">Loading entries...</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+var _searchTimer = null;
+function debounceSearch() {
+    clearTimeout(_searchTimer);
+    _searchTimer = setTimeout(loadEntries, 300);
+}
+document.addEventListener('DOMContentLoaded', loadEntries);
+</script>
+{% endblock %}

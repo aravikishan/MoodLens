@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}MoodLens - About{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>About MoodLens</h1>
+    <p class="subtitle">Understanding the science behind your mood tracking.</p>
+</section>
+
+<section class="card about-section">
+    <h2>What is MoodLens?</h2>
+    <p>
+        MoodLens is a personal mood journaling application that helps you track
+        and understand your emotional well-being over time. Write about your day,
+        and MoodLens will analyse your text using a built-in sentiment analysis
+        engine to provide insights into your mood patterns.
+    </p>
+</section>
+
+<section class="card about-section">
+    <h2>How Sentiment Analysis Works</h2>
+    <p>MoodLens uses a <strong>lexicon-based</strong> approach to sentiment analysis.
+       No external AI APIs are called &mdash; everything runs locally:</p>
+    <ol class="about-steps">
+        <li><strong>Tokenization</strong> &mdash; Your text is converted to lowercase,
+            punctuation is removed, and words are separated.</li>
+        <li><strong>Sentiment Scoring</strong> &mdash; Each word is matched against a
+            curated lexicon of 120+ positive and negative words, each with a weight
+            between -1.0 and 1.0.</li>
+        <li><strong>Negation Handling</strong> &mdash; Words like "not", "never", and
+            "hardly" flip the sentiment of the following word.</li>
+        <li><strong>Intensifiers</strong> &mdash; Words like "very", "extremely", and
+            "incredibly" amplify the weight of the next sentiment word.</li>
+        <li><strong>Emotion Detection</strong> &mdash; Words are matched against 7
+            emotion categories (joy, sadness, anger, fear, love, surprise, calm)
+            with confidence scores.</li>
+        <li><strong>Mood Labelling</strong> &mdash; The aggregate score is mapped to
+            five labels: very negative, negative, neutral, positive, very positive.</li>
+    </ol>
+</section>
+
+<section class="card about-section">
+    <h2>Emotion Categories</h2>
+    <div class="emotion-grid">
+        <div class="emotion-item"><span class="emo-icon">&#128522;</span> <strong>Joy</strong> &mdash; happiness, excitement, delight</div>
+        <div class="emotion-item"><span class="emo-icon">&#128546;</span> <strong>Sadness</strong> &mdash; grief, loneliness, melancholy</div>
+        <div class="emotion-item"><span class="emo-icon">&#128545;</span> <strong>Anger</strong> &mdash; frustration, irritation, fury</div>
+        <div class="emotion-item"><span class="emo-icon">&#128552;</span> <strong>Fear</strong> &mdash; anxiety, worry, panic</div>
+        <div class="emotion-item"><span class="emo-icon">&#128525;</span> <strong>Love</strong> &mdash; affection, caring, warmth</div>
+        <div class="emotion-item"><span class="emo-icon">&#128562;</span> <strong>Surprise</strong> &mdash; astonishment, wonder, shock</div>
+        <div class="emotion-item"><span class="emo-icon">&#128524;</span> <strong>Calm</strong> &mdash; peace, serenity, balance</div>
+    </div>
+</section>
+
+<section class="card about-section">
+    <h2>Privacy</h2>
+    <p>
+        All your journal entries are stored locally in a SQLite database on the
+        server. No data is sent to external services. Your thoughts remain
+        private and secure.
+    </p>
+</section>
+
+<section class="card about-section">
+    <h2>Technology</h2>
+    <ul class="tech-list">
+        <li><strong>Backend:</strong> Python, Flask 3.0</li>
+        <li><strong>Database:</strong> SQLAlchemy + SQLite</li>
+        <li><strong>Validation:</strong> Pydantic 2.5</li>
+        <li><strong>Sentiment:</strong> Custom lexicon engine (no external APIs)</li>
+        <li><strong>Charts:</strong> HTML5 Canvas API</li>
+        <li><strong>Testing:</strong> pytest + pytest-cov</li>
+    </ul>
+</section>
+{% endblock %}
