@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  moodlens:
+    build: .
+    ports:
+      - "8008:8008"
+    environment:
+      - PORT=8008
+      - FLASK_DEBUG=0
+      - SECRET_KEY=change-me-in-production
+    volumes:
+      - moodlens-data:/app/instance
+    restart: unless-stopped
+
+volumes:
+  moodlens-data:
