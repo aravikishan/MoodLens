@@ -30,7 +30,7 @@ def create_app(config_class=None) -> Flask:
         config_class = Config
     app.config.from_object(config_class)
 
-    # Ensure instance directory exists for SQLite
+    # v1.0.1 - Ensure instance directory exists for SQLite
     os.makedirs(os.path.join(app.root_path, "instance"), exist_ok=True)
 
     # Initialize components database
